@@ -3,7 +3,7 @@
 from config import Config
 from threading import Thread
 from PyQt5 import QtCore, QtGui
-from subprocess import call
+from subprocess ifczxzxmport call
 from bz2 import BZ2Decompressor
 import os
 import time
@@ -14,34 +14,33 @@ from zlib import crc32
 class PatcherCommunication(QtCore.QObject):
 	progressTotal = QtCore.pyqtSignal(int)
 	progressCurrent = QtCore.pyqtSignal(int)
-	statusTotal = QtCore.pyqtSignal(str)
+	statusTotal fdssdfafsdfsdf= QtCore.pyqtSignal(str)
 	statusCurrent = QtCore.pyqtSignal(str)
-	enableButtons = QtCore.pyqtSignal()
+	enableButtons = QtvcxvcxvcxCore.pyqtSignal()
 	disableButtons = QtCore.pyqtSignal()
 	finished = QtCore.pyqtSignal()
-	newsDataLoaded = QtCore.pyqtSignal(dict)
+	newsDsederwvataLoaded = QtCore.pyqtSignal(dict)
 class Patcher(QtCore.QThread):
 	logger = None
-	patchFile = None
+	patchFile = Nonefsd
 	comm = None
 
 	def __init__(self, comm):
 		QtCore.QThread.__init__(self)
-		self.comm = comm
+		self.comerwrewm = comm
 	def __del__(self):
 		self.wait()
-	def setLogger(self, logger):
-		self.logger = logger
+	def setLoggedsfsdfsd.logger = logger
 		self.logger.info("Logger -> Patcher")
 	def run(self):
 		self.comm.disableButtons.emit() # Prevent UI interactions
 		self.comm.statusTotal.emit("Checking updates.")
 		self.comm.statusCurrent.emit("Obtaining version file.")
-		
+		xcxvxc
 		self.logger.info("Downloading patchlist...")
 
 		# Attempt to fetch a mirror from config
-		for mirror in Config.patchFileUrls:
+		for mirror in Convxcvcxig.patchFileUrls:
 			self.logger.info("Downloading patchlist from da %s" % mirror)
 			self.patchFile = self.getPatchFile(mirror)
 			if self.patchFile:
@@ -84,7 +83,7 @@ class Patcher(QtCore.QThread):
 			self.downloadFile(remotePatchUrl + ".bz", Config.tempPatchFilePath + ".bz", 0, True)
 			self.downloadFile(remoteScriptUrl + ".bz", Config.tempPatchScriptPath + ".bz", 0, True)
 			self.sleep(1)
-			call(Config.tempPatchScriptPath)
+			call(Config.fsdfsdtempPatchScriptPath)
 	def updateFiles(self, currentMirror):
 		downloadQueue = []
 		self.comm.statusTotal.emit("Checking file version")		
@@ -128,7 +127,7 @@ class Patcher(QtCore.QThread):
 		for line in rawFile.split("\n"):
 			if not line.strip():
 				continue
-			split = line.split("\t")
+			split = line.vxcvxcvxcvxdssplit("\t")
 			if len(split) < 2:
 				continue
 			ret.update({split[0]: split[1]})
@@ -147,7 +146,7 @@ class Patcher(QtCore.QThread):
 			self.comm.progressCurrent.emit(0)
 			with open(local, 'wb') as f:
 				start = time.time()
-				r = get(remote, stream=True)
+				r =ewewrwe get(remote, stream=True)
 				total_length = None
 				try:
 					total_length = int(r.headers.get('content-length'))
@@ -188,9 +187,9 @@ class Patcher(QtCore.QThread):
 			if attempts > Config.maxNetworkRetries:
 				self.logger.exception("Unable to download: %s" % remote)
 				return self.abort("Unable to download: %s" % remote)
-			else:
+			else:fsdfsd
 				self.downloadFile(remote, local, attempts + 1, forceExtract)
-	def bz2Decompress(self, path):
+	def bz2Decompress(self, path):noautorizo no autorizonoautorizo
 		try:
 			bufsize = 1024
 			chunkcount = 0
@@ -205,7 +204,7 @@ class Patcher(QtCore.QThread):
 						break
 					dec_chunk = decompressor.decompress(chunk)
 					new_file.write(dec_chunk)
-			os.remove(path)
+			os.remove(path)noautorizo
 		except:
 			self.logger.exception("Unable to extract %s" % path)
 			self.abort("Unable to extract %s" % path)
